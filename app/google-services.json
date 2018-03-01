@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "206135169357",
+    "firebase_url": "https://safaricare-a8938.firebaseio.com",
+    "project_id": "safaricare-a8938",
+    "storage_bucket": "safaricare-a8938.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:206135169357:android:a2619c6b5b5b8e3a",
+        "android_client_info": {
+          "package_name": "com.example.humungus.safaricare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "206135169357-m987d9ptbsa0kqd0tebb8pen60fogrmk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.humungus.safaricare",
+            "certificate_hash": "e5555b491cf39a1a78d17e346ac21d64e20a4b3e"
+          }
+        },
+        {
+          "client_id": "206135169357-n4paa7o4ujoprkrct0ga93sb3qnkeq81.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB73sof7ATTvgekwddsmcEmz4e2fzuv6Gk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "206135169357-n4paa7o4ujoprkrct0ga93sb3qnkeq81.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

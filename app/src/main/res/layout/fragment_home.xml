@@ -1,0 +1,49 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.humungus.safaricare.fragments.homeFragment"
+    android:layout_gravity="center"
+    android:background="#37474F">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/colorPrimary">
+        <TextView
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:fontFamily="@font/litsans"
+            android:textAlignment="center"
+            android:text="Safari Care"
+            android:textSize="25dp"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/customer_avatar"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FFF"
+            android:layout_marginLeft="190dp"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <com.github.anastr.speedviewlib.AwesomeSpeedometer
+        android:layout_gravity="center"
+        android:id="@+id/awesomeSpeedometer"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        app:sv_speedometerColor="#689F38"
+        app:sv_trianglesColor="#25b9b4"
+        app:sv_backgroundCircleColor="@color/colorPrimary"
+        app:sv_highSpeedColor="#f44336"
+        app:sv_speedTextSize="70sp"
+        android:layout_marginBottom="45dp"
+        app:sv_trembleDegree="2"/>
+
+</FrameLayout>

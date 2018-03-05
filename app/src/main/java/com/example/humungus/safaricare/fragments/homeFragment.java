@@ -18,13 +18,19 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 //import com.example.humungus.safaricare.MainActivity;
+import com.bumptech.glide.Glide;
 import com.example.humungus.safaricare.R;
 import com.github.anastr.speedviewlib.AwesomeSpeedometer;
 import com.github.anastr.speedviewlib.Gauge;
 import com.github.anastr.speedviewlib.util.OnSpeedChangeListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,8 +38,9 @@ import com.github.anastr.speedviewlib.util.OnSpeedChangeListener;
 public class homeFragment extends Fragment implements LocationListener {
 
     private AwesomeSpeedometer mAwesomeSpeedometer;
+    private FirebaseAuth mAuth;
 
-
+    CircleImageView DpIV;
 
     public homeFragment() {
         // Required empty public constructor
@@ -46,6 +53,7 @@ public class homeFragment extends Fragment implements LocationListener {
 
         //speedDometer code
         mAwesomeSpeedometer= (AwesomeSpeedometer) view.findViewById(R.id.awesomeSpeedometer);
+        DpIV = (CircleImageView)view.findViewById(R.id.profile_image);
 
         try {
             if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
@@ -58,8 +66,15 @@ public class homeFragment extends Fragment implements LocationListener {
         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         this.onLocationChanged(null);
 
+        mAuth = FirebaseAuth.getInstance();
+//
+        loadUserImag();
+
         return view;
     }
+
+
+
 
     @Override
     public void onLocationChanged(Location location) {
@@ -69,7 +84,7 @@ public class homeFragment extends Fragment implements LocationListener {
         }
         else{
             //int speed=(int) ((location.getSpeed()) is the standard which returns meters per second. In this example i converted it to kilometers per hour
-            int speed=(int) ((location.getSpeed()*3600)/1000);
+            int speed= (int) (location.getSpeed()*3600/1000);
             mAwesomeSpeedometer.speedTo(speed);
 
 
@@ -99,5 +114,14 @@ public class homeFragment extends Fragment implements LocationListener {
         Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         startActivity(intent);
     }
-
+    private void loadUserImag() {
+        final FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            if (currentUser.getPhotoUrl() != null) {
+                Glide.with(this)
+                        .load(currentUser.getPhotoUrl().toString())
+                        .into(DpIV);
+            }
+        }
+    }
 }

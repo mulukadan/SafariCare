@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.humungus.safaricare.R;
+import com.example.humungus.safaricare.SlideViewActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -64,7 +65,8 @@ public class LoginActivitry extends AppCompatActivity implements View.OnClickLis
                 startActivity(intent);
                 break;
             case R.id.learnmorebtn: //To learn More
-
+                Intent i = new Intent(getApplicationContext(), SlideViewActivity.class);
+                startActivity(i);
                 break;
         }
     }

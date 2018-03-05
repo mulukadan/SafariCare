@@ -43,7 +43,7 @@ public class reportsAdapter extends RecyclerView.Adapter<reportsAdapter.myViewHo
         reportsModel current = data.get(position);
 
         holder.thumbnail.setImageResource(Integer.parseInt(current.getThumbnail()));
-        holder.title.setText(current.getTitle());
+        holder.title.setText(current.getUsername());
         holder.date.setText(current.getDate());
         holder.tweets.setText(current.getTweets());
 
@@ -63,7 +63,7 @@ public class reportsAdapter extends RecyclerView.Adapter<reportsAdapter.myViewHo
         public myViewHolder(View itemView) {
             super(itemView);
             thumbnail = itemView.findViewById(R.id.thumbnail);
-            title = itemView.findViewById(R.id.tweettitle);
+            title = itemView.findViewById(R.id.username);
             date = itemView.findViewById(R.id.date);
             tweets = itemView.findViewById(R.id.tweets);
         }

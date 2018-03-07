@@ -36,7 +36,7 @@ public class ReportsHolderAdapter  extends RecyclerView.ViewHolder{
     }
 
     public void setCircleImageView(String img, Context context) {
-        StorageReference ref = FirebaseStorage.getInstance().getReference().child(img);
+        StorageReference ref = FirebaseStorage.getInstance().getReference().child("profilepics").child(img);
 //        Glide.with(context).using(new FirebaseImageLoader()).load(ref).into(circleImageView);
         Glide.with(context)
 //                        .using(new FirebaseImageLoader())

@@ -2,6 +2,7 @@ package com.example.humungus.safaricare.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,9 +19,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener{
-    private EditText emailET, passwordET;
+    private EditText emailET, passwordET, usernameET;
     private Button createAccBtn;
 
     private FirebaseAuth mAuth;
@@ -36,6 +38,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         emailET = (EditText)findViewById(R.id.signupemail);
         passwordET = (EditText)findViewById(R.id.signuppassword);
+        usernameET = (EditText)findViewById(R.id.signupusername);
 
         pd = new ProgressDialog(this);
 
@@ -58,6 +61,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     public void registerUser(){
         final String Email = emailET.getText().toString().trim();
         String password = passwordET.getText().toString().trim();
+        final String username = usernameET.getText().toString().trim();
+
+        if(username.isEmpty()){
+            usernameET.setError("Username is required");
+            usernameET.requestFocus();
+            return;
+        }
         if(Email.isEmpty()){
             emailET.setError("Email is required");
             emailET.requestFocus();
@@ -79,6 +89,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             passwordET.requestFocus();
             return;
         }
+
+
         pd.show();
         mAuth.createUserWithEmailAndPassword(Email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -89,7 +101,23 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             pd.hide();
                             finish();
                             Toast.makeText(getApplicationContext(),"Account Created Successfuly", Toast.LENGTH_SHORT ).show();
+                            //Setting User Display name
                             FirebaseUser user = mAuth.getCurrentUser();
+
+                            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(username)
+                                    .build();
+                            user.updateProfile(profile)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if(task.isSuccessful()){
+                                                Toast.makeText(getApplicationContext(), "Profile Updated Successfully", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+
+
                             Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);

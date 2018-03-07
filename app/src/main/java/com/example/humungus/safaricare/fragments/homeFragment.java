@@ -18,17 +18,24 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 //import com.example.humungus.safaricare.MainActivity;
 import com.bumptech.glide.Glide;
 import com.example.humungus.safaricare.R;
+import com.example.humungus.safaricare.models.reportsModel;
 import com.github.anastr.speedviewlib.AwesomeSpeedometer;
 import com.github.anastr.speedviewlib.Gauge;
 import com.github.anastr.speedviewlib.util.OnSpeedChangeListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -39,6 +46,10 @@ public class homeFragment extends Fragment implements LocationListener {
 
     private AwesomeSpeedometer mAwesomeSpeedometer;
     private FirebaseAuth mAuth;
+    private Button reportBtn;
+    private FirebaseUser currentUser = null;
+    private FirebaseDatabase DATABASE = FirebaseDatabase.getInstance();
+
 
     CircleImageView DpIV;
 
@@ -51,6 +62,8 @@ public class homeFragment extends Fragment implements LocationListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home,container,false);
 
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
         //speedDometer code
         mAwesomeSpeedometer= (AwesomeSpeedometer) view.findViewById(R.id.awesomeSpeedometer);
         DpIV = (CircleImageView)view.findViewById(R.id.profile_image);
@@ -66,9 +79,31 @@ public class homeFragment extends Fragment implements LocationListener {
         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
         this.onLocationChanged(null);
 
-        mAuth = FirebaseAuth.getInstance();
+
 //
         loadUserImag();
+
+        reportBtn = (Button) view.findViewById(R.id.reportbtn);
+        reportBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(currentUser != null){
+                    String thumbnail = currentUser.getPhotoUrl().toString() ;
+                    String username = currentUser.getDisplayName().toString();
+                    //Getting System Date
+                    Date c = Calendar.getInstance().getTime();
+                    SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                    String date = df.format(c);
+                    String noPlate = "KCC 456D";
+                    String MatName = "Transline";
+                    String Sacco= "Transline Sacco";
+                    String tweets = "Overlapping carelessly";
+
+                    reportsModel newReport = new reportsModel(thumbnail, username, date, noPlate, MatName, Sacco, tweets);
+                    DATABASE.getReference().child("reports").push().setValue(newReport);
+                }
+            }
+        });
 
         return view;
     }
@@ -115,7 +150,7 @@ public class homeFragment extends Fragment implements LocationListener {
         startActivity(intent);
     }
     private void loadUserImag() {
-        final FirebaseUser currentUser = mAuth.getCurrentUser();
+//        final FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             if (currentUser.getPhotoUrl() != null) {
                 Glide.with(this)

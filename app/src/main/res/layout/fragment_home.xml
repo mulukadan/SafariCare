@@ -45,5 +45,11 @@
         app:sv_speedTextSize="70sp"
         android:layout_marginBottom="45dp"
         app:sv_trembleDegree="2"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:id="@+id/reportbtn"
+        android:text="Report"/>
 
 </FrameLayout>

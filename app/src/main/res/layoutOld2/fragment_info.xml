@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.humungus.safaricare.fragments.infoFragment"
     android:orientation="vertical"
-    android:background="@color/colorAccent">
+    android:background="#fff">
 
     <RelativeLayout
         android:id="@+id/infopic"
@@ -14,8 +14,7 @@
         android:layout_below="@+id/relativeLayout"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="80dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="25dp"
+        android:layout_marginLeft="80dp"
         android:elevation="15dp"
         android:orientation="horizontal"
         android:paddingTop="10dp">
@@ -38,15 +37,16 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:src="@drawable/customer_avatar" />
-
+            android:src="@drawable/customer_avatar"
+            app:civ_border_color="#FFF"
+            app:civ_border_width="2dp" />
         <ProgressBar
-            android:id="@+id/progressbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/progressbar"
+            android:visibility="gone"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:visibility="gone" />
+            android:layout_centerVertical="true"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -58,39 +58,35 @@
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/colorAccent">
+            app:cardBackgroundColor="#fff">
 
             <EditText
                 android:id="@+id/username"
+                android:drawablePadding="150dp"
                 android:textColor="@color/colorPrimary"
                 android:fontFamily="@font/litsans"
                 android:textSize="20dp"
-                android:layout_width="250dp"
-                android:layout_height="50dp"
-                android:hint="User name"
-                android:textColorHint="@color/colorPrimaryDark"
-                android:background="@drawable/custom_edit_txt"
-                android:layout_marginBottom="10dp"
-                android:paddingLeft="10dp"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="User name"/>
 
             <ImageButton
                 android:id="@+id/editnamebtn"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="right"
-                android:background="@color/colorAccent"
+                android:background="#fff"
                 app:srcCompat="@drawable/ic_save_black_24dp"/>
 
             <TextView
                 android:id="@+id/useremail"
                 android:textSize="20dp"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimary"
                 android:fontFamily="@font/litsans"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="40dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="email"
-                android:paddingLeft="10dp"/>
+                android:text="email"/>
 
         </android.support.v7.widget.CardView>
 
@@ -98,10 +94,8 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_weight="0"
-        android:layout_marginTop="90dp"
-        android:background="@color/colorPrimaryDark">
+        android:layout_marginTop="40dp"
+        app:cardElevation="10dp">
 
     <Button
         android:id="@+id/logoutbtn"
@@ -109,7 +103,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="logout"
-        android:textColor="#f44336"
-        android:background="@color/white"/>
+        android:textColor="@color/colorPrimary"
+        android:background="#fff"/>
     </android.support.v7.widget.CardView>
 </LinearLayout>

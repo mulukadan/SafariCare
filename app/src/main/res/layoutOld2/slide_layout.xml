@@ -23,7 +23,6 @@
         android:text="username"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@color/white"
         />
 
     <TextView
@@ -35,7 +34,7 @@
         android:layout_margin="25dp"
         android:fontFamily="@font/litsans"
         android:text="lorem ipsum blad delttlmv mlmdtmlm m;rtmhem lkmghmem mrtmyj'mpm metmyj;rm;nm;m mymj;my;nm;m smr;j;ebmq;n3ynj."
-        android:textColor="@color/colorAccent"/>
+        />
 
 
 

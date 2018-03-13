@@ -34,7 +34,7 @@ public class tweetFragment extends Fragment {
     private reportsAdapter adapter;
     private Button SearchBtn;
     private EditText SearchTextET;
-    private List<reportsModel> reports;
+    private List<reportsModel> reports = new ArrayList<reportsModel>();
 
     public tweetFragment() {
         // Required empty public constructor
@@ -67,6 +67,7 @@ public class tweetFragment extends Fragment {
     }
 
     public void setAdapter(final  String searchedString){
+        reports.clear();
         DatabaseReference ReportsRef = FirebaseDatabase.getInstance()
                 .getReference()
                 .child("reports");
@@ -75,10 +76,27 @@ public class tweetFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     String NoPlate = snapshot.child("noPlate").getValue(String.class);
-                    if (NoPlate.contains(searchedString)){
+                    String matName = snapshot.child("matName").getValue(String.class);
+                    String sacco = snapshot.child("sacco").getValue(String.class);
+                    String tweets = snapshot.child("tweets").getValue(String.class);
+
+                    if (NoPlate.toLowerCase().contains(searchedString.toLowerCase())){
+                        reports.add(snapshot.getValue(reportsModel.class));
+                    }
+                    if (matName.toLowerCase().contains(searchedString.toLowerCase())){
+                        reports.add(snapshot.getValue(reportsModel.class));
+                    }
+                    if (sacco.toLowerCase().contains(searchedString.toLowerCase())){
+                        reports.add(snapshot.getValue(reportsModel.class));
+                    }
+                    if (tweets.toLowerCase().contains(searchedString.toLowerCase())){
                         reports.add(snapshot.getValue(reportsModel.class));
                     }
                 }
+
+                adapter = new reportsAdapter(getContext(),reports);
+                recyclerView.setAdapter(adapter);
+
             }
 
             @Override

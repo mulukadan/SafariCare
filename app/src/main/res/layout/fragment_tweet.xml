@@ -4,6 +4,44 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.humungus.safaricare.fragments.tweetFragment">
+  tools:context="com.example.humungus.safaricare.fragments.searchFragment">
+  <RelativeLayout
+      android:id="@+id/sbholder"
+      android:layout_width="match_parent"
+      android:layout_height="120dp"
+      android:background="@color/colorAccent">
+
+    <AutoCompleteTextView
+        android:id="@+id/searchbox"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="23dp"
+        android:drawableLeft="@drawable/ic_search_black_24dp"
+        android:drawablePadding="10dp" />
+
+    <Button
+        android:id="@+id/searchbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/searchbox"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/buttonstyle2"
+        android:text="search"
+        android:textColor="@color/colorAccent"/>
+
+  </RelativeLayout>
+
+  <RelativeLayout
+      android:layout_below="@id/sbholder"
+      android:id="@+id/rvholder"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
 
   <android.support.v7.widget.RecyclerView
       android:id="@+id/recycleradapter"
@@ -11,6 +49,7 @@
       android:layout_height="match_parent">
 
   </android.support.v7.widget.RecyclerView>
+  </RelativeLayout>
 
 </RelativeLayout>
 

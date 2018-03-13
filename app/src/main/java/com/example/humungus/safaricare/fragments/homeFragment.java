@@ -10,6 +10,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -38,6 +39,10 @@ import java.util.Calendar;
 import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.auth.AccessToken;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -94,13 +99,14 @@ public class homeFragment extends Fragment implements LocationListener {
                     Date c = Calendar.getInstance().getTime();
                     SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
                     String date = df.format(c);
-                    String noPlate = "KCF 126S";
-                    String MatName = "Super Metro";
-                    String Sacco= "NRB Sacco";
-                    String tweets = "Over Speeding, Careless Driver";
+                    String noPlate = "KBF 326S";
+                    String MatName = "Guardian Angel";
+                    String Sacco= "Guardian Sacco";
+                    String tweets = "Over Loaded";
 
                     reportsModel newReport = new reportsModel(thumbnail, username, date, noPlate, MatName, Sacco, tweets);
                     DATABASE.getReference().child("reports").push().setValue(newReport);
+                    tweet("#" + MatName.replace(" ", "")+ " #"+noPlate.replace(" ", "") + " #"+ Sacco.replace(" ", "")+ " " + tweets+ ". Date:" + date);
                 }
             }
         });
@@ -108,7 +114,26 @@ public class homeFragment extends Fragment implements LocationListener {
         return view;
     }
 
+    private void tweet(String Message) {
+        String token ="966661463069863936-A74ZjI5LhdHi75DKnYfR9EBr6ng8L8g";
+        String secret = "1dDSNk0j5oLJ7vDUmy2gArW6DpG0RKs1w6wxA49b7Ccoo";
+        AccessToken a = new AccessToken(token,secret);
+        final Twitter twitter = new TwitterFactory().getInstance();
+        twitter.setOAuthConsumer("p2EF2xSR6pSVYKaOeVvs675SZ", "5v0rQgA2d4A2wjeSJFweInDLRAh5zTQkwz6NNiOOzHwKgLZb5O");
+        twitter.setOAuthAccessToken(a);
 
+        if (android.os.Build.VERSION.SDK_INT> 8) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+        try {
+            twitter.updateStatus(Message);
+        } catch (TwitterException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
     @Override

@@ -94,10 +94,10 @@ public class homeFragment extends Fragment implements LocationListener {
                     Date c = Calendar.getInstance().getTime();
                     SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
                     String date = df.format(c);
-                    String noPlate = "KCC 456D";
-                    String MatName = "Transline";
-                    String Sacco= "Transline Sacco";
-                    String tweets = "Overlapping carelessly";
+                    String noPlate = "KCF 126S";
+                    String MatName = "Super Metro";
+                    String Sacco= "NRB Sacco";
+                    String tweets = "Over Speeding, Careless Driver";
 
                     reportsModel newReport = new reportsModel(thumbnail, username, date, noPlate, MatName, Sacco, tweets);
                     DATABASE.getReference().child("reports").push().setValue(newReport);

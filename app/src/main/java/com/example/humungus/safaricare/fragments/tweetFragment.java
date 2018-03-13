@@ -8,6 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 
 import com.example.humungus.safaricare.R;
@@ -18,6 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +32,9 @@ public class tweetFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private reportsAdapter adapter;
+    private Button SearchBtn;
+    private EditText SearchTextET;
+    private List<reportsModel> reports;
 
     public tweetFragment() {
         // Required empty public constructor
@@ -37,16 +43,52 @@ public class tweetFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tweet,container,false);
+        SearchBtn = (Button)view.findViewById(R.id.searchbtn);
+        SearchTextET = (EditText)view.findViewById(R.id.searchbox);
+
         recyclerView = view.findViewById(R.id.recycleradapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.smoothScrollToPosition(0);
 
         displayReports();
+        SearchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SearchReports();
+            }
+        });
 
         return view;
     }
 
-   public void displayReports(){
+    private void SearchReports() {
+        String searchTxt = SearchTextET.getText().toString().trim();
+        setAdapter(searchTxt);
+    }
+
+    public void setAdapter(final  String searchedString){
+        DatabaseReference ReportsRef = FirebaseDatabase.getInstance()
+                .getReference()
+                .child("reports");
+        ReportsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    String NoPlate = snapshot.child("noPlate").getValue(String.class);
+                    if (NoPlate.contains(searchedString)){
+                        reports.add(snapshot.getValue(reportsModel.class));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+    public void displayReports(){
        // Initialize message ListView and its adapter
        final List<reportsModel> reports = new ArrayList<>();
        adapter = new reportsAdapter(getContext(),reports);
@@ -55,6 +97,7 @@ public class tweetFragment extends Fragment {
        DatabaseReference ReportsRef = FirebaseDatabase.getInstance()
                .getReference()
                .child("reports");
+
 
        ReportsRef.addChildEventListener(new ChildEventListener() {
            @Override

@@ -33,7 +33,6 @@ public class reportsAdapter extends RecyclerView.Adapter<reportsAdapter.myViewHo
     public reportsAdapter(Context context, List<reportsModel> data) {
         inflator=LayoutInflater.from(context);
         mContext = context;
-
         this.data = data;
     }
 

@@ -132,8 +132,11 @@ public class infoFragment extends Fragment {
         }
 
         FirebaseUser user = mAuth.getCurrentUser();
+        if(profileImageUri == null){
+            profileImageUri = user.getPhotoUrl().toString();
+        }
 
-        if(user != null && profileImageUri != null){
+        if(user != null){
             UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
                     .setDisplayName(displayName)
                     .setPhotoUri(Uri.parse(profileImageUri))

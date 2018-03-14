@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.humungus.safaricare"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -16,6 +16,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    packagingOptions {
+        pickFirst 'META-INF/LICENSE.txt' // picks the JavaMail license file
     }
 }
 
@@ -50,7 +53,11 @@ dependencies {
 
     compile 'org.twitter4j:twitter4j-core:4.0.5'
 
-    compile group: 'com.sun.mail', name: 'javax.mail', version: '1.6.0'
+//    compile group: 'com.sun.mail', name: 'javax.mail', version: '1.6.0'
+
+    // use whatever the current version is...
+    compile 'com.sun.mail:android-mail:1.6.0'
+    compile 'com.sun.mail:android-activation:1.6.0'
 
 
 }

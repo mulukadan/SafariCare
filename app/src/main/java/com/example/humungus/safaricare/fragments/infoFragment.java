@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.humungus.safaricare.R;
 import com.example.humungus.safaricare.activities.LoginActivitry;
+import com.example.humungus.safaricare.models.SubscriptionModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -29,6 +30,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -52,8 +54,13 @@ public class infoFragment extends Fragment {
     Bitmap bitmap;
     String profileImageUri;
 
+    EditText SaccoNameET;
+    Button SubscribeBtn;
+
     Uri uriProfileImage;
     ProgressBar progressBar;
+    FirebaseUser currentUser;
+    private FirebaseDatabase DATABASE = FirebaseDatabase.getInstance();
 
     public infoFragment() {
         // Required empty public constructor
@@ -75,6 +82,7 @@ public class infoFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
 
         mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
 
         changeImgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,11 +108,35 @@ public class infoFragment extends Fragment {
         });
 
         loadUserInformation();
+
+        SaccoNameET= (EditText) view.findViewById(R.id.SaccoName);
+        SubscribeBtn = (Button)view.findViewById(R.id.SubcscribeBtn);
+        SubscribeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Subscribe();
+            }
+        });
         return view;
     }
 
+    private void Subscribe() {
+        String SaccoNAme = SaccoNameET.getText().toString();
+        String Email = currentUser.getEmail();
+
+        if(SaccoNAme.isEmpty()){
+            SaccoNameET.setError("Sacco Name Required");
+            SaccoNameET.requestFocus();
+            return;
+        }
+
+        SubscriptionModel newSubScription = new SubscriptionModel(Email, SaccoNAme);
+        DATABASE.getReference().child("subscriptions").push().setValue(newSubScription);
+        Toast.makeText(getContext(), "Subscribed Successfully", Toast.LENGTH_SHORT).show();
+    }
+
     private void loadUserInformation() {
-        final FirebaseUser currentUser = mAuth.getCurrentUser();
+
         if(currentUser != null){
             if(currentUser.getPhotoUrl() !=null){
                 Glide.with(this)

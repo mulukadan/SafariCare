@@ -31,6 +31,7 @@ import android.widget.Toast;
 //import com.example.humungus.safaricare.MainActivity;
 import com.bumptech.glide.Glide;
 import com.example.humungus.safaricare.R;
+import com.example.humungus.safaricare.adapters.EmailSender;
 import com.example.humungus.safaricare.models.reportsModel;
 import com.github.anastr.speedviewlib.AwesomeSpeedometer;
 import com.github.anastr.speedviewlib.Gauge;
@@ -131,7 +132,9 @@ public class homeFragment extends Fragment implements LocationListener {
 
                             reportsModel newReport = new reportsModel(thumbnail, username, date, noPlate, MatName, Sacco, tweets);
                             DATABASE.getReference().child("reports").push().setValue(newReport);
+                            String Message = "#" + MatName.replace(" ", "")+ " #"+noPlate.replace(" ", "") + " #"+ Sacco.replace(" ", "")+ " " + tweets+ ". Date:" + date;
                             tweet("#" + MatName.replace(" ", "")+ " #"+noPlate.replace(" ", "") + " #"+ Sacco.replace(" ", "")+ " " + tweets+ ". Date:" + date);
+                            Email(Message);
                             popUp.dismiss();
                         }
                     });
@@ -151,6 +154,12 @@ public class homeFragment extends Fragment implements LocationListener {
         });
 
         return view;
+    }
+
+    private void Email(String Message) {
+        String[] to = {"kadan.md@gmail.com", "josephchege08@gmail.com"};
+        EmailSender.sendMail("safaricare08@gmail.com","SPEEDCare08", "Safaricare", Message,to);
+
     }
 
     private void tweet(String Message) {

@@ -1,0 +1,115 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.humungus.safaricare.fragments.infoFragment"
+    android:orientation="vertical"
+    android:background="@color/colorAccent">
+
+    <RelativeLayout
+        android:id="@+id/infopic"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_below="@+id/relativeLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="80dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:elevation="15dp"
+        android:orientation="horizontal"
+        android:paddingTop="10dp">
+
+        <Button
+            android:id="@+id/edit_imagebtn"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="right"
+            android:background="@drawable/buttonstyle2"
+            android:drawableRight="@drawable/ic_camera_alt_black_24dp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/customer_avatar" />
+
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_marginBottom="70dp">
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/colorAccent">
+
+            <EditText
+                android:id="@+id/username"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/litsans"
+                android:textSize="20dp"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:hint="User name"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:background="@drawable/custom_edit_txt"
+                android:layout_marginBottom="10dp"
+                android:paddingLeft="10dp"/>
+
+            <ImageButton
+                android:id="@+id/editnamebtn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="right"
+                android:background="@color/colorAccent"
+                app:srcCompat="@drawable/ic_save_black_24dp"/>
+
+            <TextView
+                android:id="@+id/useremail"
+                android:textSize="20dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:fontFamily="@font/litsans"
+                android:layout_marginTop="60dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="email"
+                android:paddingLeft="10dp"/>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_weight="0"
+        android:layout_marginTop="90dp"
+        android:background="@color/colorPrimaryDark">
+
+    <Button
+        android:id="@+id/logoutbtn"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="logout"
+        android:textColor="#f44336"
+        android:background="@color/white"/>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

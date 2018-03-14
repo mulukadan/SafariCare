@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import com.example.humungus.safaricare.R;
 import com.example.humungus.safaricare.fragments.homeFragment;
 import com.example.humungus.safaricare.fragments.infoFragment;
-import com.example.humungus.safaricare.fragments.searchFragment;
 import com.example.humungus.safaricare.fragments.tweetFragment;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -53,10 +52,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
             case R.id.navigation_dashboard:
                 fragment = new tweetFragment();
-                break;
-
-            case R.id.navigation_search:
-                fragment = new searchFragment();
                 break;
 
             case R.id.navigation_info:

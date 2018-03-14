@@ -127,7 +127,7 @@ public class LoginActivitry extends AppCompatActivity implements View.OnClickLis
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser!=null){
-            Toast.makeText(getApplicationContext(), "Welcome back: " + currentUser.getEmail(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Welcome back: " + currentUser.getDisplayName(), Toast.LENGTH_LONG).show();
             finish();
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);

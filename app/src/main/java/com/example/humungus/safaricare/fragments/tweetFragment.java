@@ -1,6 +1,7 @@
 package com.example.humungus.safaricare.fragments;
 
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 
 import com.example.humungus.safaricare.R;
@@ -32,9 +36,10 @@ public class tweetFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private reportsAdapter adapter;
-    private Button SearchBtn;
+    private ImageButton SearchBtn;
     private EditText SearchTextET;
     private List<reportsModel> reports = new ArrayList<reportsModel>();
+    ProgressDialog pd;
 
     public tweetFragment() {
         // Required empty public constructor
@@ -43,8 +48,12 @@ public class tweetFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tweet,container,false);
-        SearchBtn = (Button)view.findViewById(R.id.searchbtn);
+        SearchBtn = (ImageButton)view.findViewById(R.id.searchbtn);
         SearchTextET = (EditText)view.findViewById(R.id.searchbox);
+        pd = new ProgressDialog(getContext());
+        pd.setMessage("Loading ...");
+        pd.setCancelable(false);
+        pd.show();
 
         recyclerView = view.findViewById(R.id.recycleradapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -54,6 +63,9 @@ public class tweetFragment extends Fragment {
         SearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pd.setMessage("Searching ...");
+                pd.setCancelable(false);
+                pd.show();
                 SearchReports();
             }
         });
@@ -96,6 +108,10 @@ public class tweetFragment extends Fragment {
 
                 adapter = new reportsAdapter(getContext(),reports);
                 recyclerView.setAdapter(adapter);
+                pd.hide();
+                if(reports.size()<1){
+                    Toast.makeText(getContext(), "Search Match NOT FOUND!!", Toast.LENGTH_SHORT).show();
+                }
 
             }
 
@@ -145,5 +161,6 @@ public class tweetFragment extends Fragment {
 
            }
        });
+       pd.hide();
     }
 }

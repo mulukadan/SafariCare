@@ -5,40 +5,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.humungus.safaricare.fragments.tweetFragment">
   tools:context="com.example.humungus.safaricare.fragments.searchFragment">
-  <RelativeLayout
-      android:id="@+id/sbholder"
+
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
       android:layout_width="match_parent"
-      android:layout_height="120dp"
-      android:background="@color/colorAccent">
+      android:layout_height="25dp"></android.support.v7.widget.Toolbar>
 
     <AutoCompleteTextView
         android:id="@+id/searchbox"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="23dp"
-        android:drawableLeft="@drawable/ic_search_black_24dp"
-        android:drawablePadding="10dp" />
+        android:layout_marginBottom="13dp"
+        android:background="@drawable/custom_edit_txt"
+        android:drawablePadding="10dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="10dp"
+        android:hint="search"
+        android:paddingLeft="10dp"
+        android:layout_marginLeft="5dp"/>
 
-    <Button
-        android:id="@+id/searchbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/searchbox"
-        android:layout_marginEnd="12dp"
-        android:layout_marginRight="12dp"
-        android:background="@drawable/buttonstyle2"
-        android:text="search"
-        android:textColor="@color/colorAccent"/>
+  <ImageButton
+      android:id="@+id/searchbtn"
+      android:layout_width="50dp"
+      android:layout_height="50dp"
+      android:layout_alignTop="@+id/searchbox"
+      android:layout_toEndOf="@+id/searchbox"
+      android:layout_toRightOf="@+id/searchbox"
+      android:background="@color/colorPrimary"
+      app:srcCompat="@drawable/ic_search_black_24dp"
+      />
 
-  </RelativeLayout>
+
 
   <RelativeLayout
-      android:layout_below="@id/sbholder"
+      android:layout_below="@id/searchbox"
       android:id="@+id/rvholder"
       android:layout_width="match_parent"
       android:layout_height="wrap_content">

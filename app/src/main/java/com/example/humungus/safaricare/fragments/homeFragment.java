@@ -2,10 +2,13 @@ package com.example.humungus.safaricare.fragments;
 
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -14,12 +17,14 @@ import android.os.StrictMode;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -55,6 +60,13 @@ public class homeFragment extends Fragment implements LocationListener {
     private FirebaseUser currentUser = null;
     private FirebaseDatabase DATABASE = FirebaseDatabase.getInstance();
 
+    private Button reportBtnP;
+    private Button CancelBtn;
+    private EditText MatNameET;
+    private EditText noPlateET;
+    private EditText SaccoET;
+    private EditText tweetsET;
+
 
     CircleImageView DpIV;
 
@@ -65,7 +77,7 @@ public class homeFragment extends Fragment implements LocationListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home,container,false);
+        final View view = inflater.inflate(R.layout.fragment_home,container,false);
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -93,20 +105,47 @@ public class homeFragment extends Fragment implements LocationListener {
             @Override
             public void onClick(View v) {
                 if(currentUser != null){
-                    String thumbnail = currentUser.getPhotoUrl().toString() ;
-                    String username = currentUser.getDisplayName().toString();
-                    //Getting System Date
-                    Date c = Calendar.getInstance().getTime();
-                    SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-                    String date = df.format(c);
-                    String noPlate = "KBF 326S";
-                    String MatName = "Guardian Angel";
-                    String Sacco= "Guardian Sacco";
-                    String tweets = "Over Loaded";
+                    final Dialog popUp = new Dialog(getContext());
+                    popUp.setContentView(R.layout.popup_dialogue);
+                    popUp.setCanceledOnTouchOutside(false);
+                     reportBtnP = (Button)popUp.findViewById(R.id.dialogueReportBtn);
+                     CancelBtn = (Button)popUp.findViewById(R.id.dialogueIgnoreBtn);
+                     MatNameET = (EditText) popUp.findViewById(R.id.dialogueVN);
+                     noPlateET = (EditText) popUp.findViewById(R.id.dialogueNP);
+                     SaccoET = (EditText) popUp.findViewById(R.id.dialogueSN);
+                     tweetsET = (EditText) popUp.findViewById(R.id.dialogueSS);
 
-                    reportsModel newReport = new reportsModel(thumbnail, username, date, noPlate, MatName, Sacco, tweets);
-                    DATABASE.getReference().child("reports").push().setValue(newReport);
-                    tweet("#" + MatName.replace(" ", "")+ " #"+noPlate.replace(" ", "") + " #"+ Sacco.replace(" ", "")+ " " + tweets+ ". Date:" + date);
+                    reportBtnP.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String thumbnail = currentUser.getPhotoUrl().toString() ;
+                            String username = currentUser.getDisplayName().toString();
+                            //Getting System Date
+                            Date c = Calendar.getInstance().getTime();
+                            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                            String date = df.format(c);
+                            String noPlate = noPlateET.getText().toString();
+                            String MatName = MatNameET.getText().toString();
+                            String Sacco= SaccoET.getText().toString();
+                            String tweets = tweetsET.getText().toString();
+
+                            reportsModel newReport = new reportsModel(thumbnail, username, date, noPlate, MatName, Sacco, tweets);
+                            DATABASE.getReference().child("reports").push().setValue(newReport);
+                            tweet("#" + MatName.replace(" ", "")+ " #"+noPlate.replace(" ", "") + " #"+ Sacco.replace(" ", "")+ " " + tweets+ ". Date:" + date);
+                            popUp.dismiss();
+                        }
+                    });
+
+                    CancelBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            popUp.dismiss();
+                        }
+                    });
+
+                    popUp.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    popUp.show();
+
                 }
             }
         });

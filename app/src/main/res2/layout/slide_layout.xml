@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/svimage"
+        android:layout_width="150sp"
+        android:layout_height="150sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="83dp"
+        android:src="@color/colorPrimary"/>
+
+    <TextView
+        android:id="@+id/svtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:fontFamily="@font/litsans"
+        android:text="username"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        />
+
+    <TextView
+        android:id="@+id/svdescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/svtitle"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="25dp"
+        android:fontFamily="@font/litsans"
+        android:text="lorem ipsum blad delttlmv mlmdtmlm m;rtmhem lkmghmem mrtmyj'mpm metmyj;rm;nm;m mymj;my;nm;m smr;j;ebmq;n3ynj."
+        android:textColor="@color/colorAccent"/>
+
+
+
+</RelativeLayout>
